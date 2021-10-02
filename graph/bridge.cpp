@@ -1,13 +1,13 @@
 /*
- *  BOJ 11400
- *  https://www.acmicpc.net/problem/11400
+ * BOJ 11400
+ * https://www.acmicpc.net/problem/11400
  */
 
 #include <bits/stdc++.h>
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-struct Bridge { // there must be no multi-edge
+struct Bridge { // must be no multi-edge
 	int n, dfs_cnt;
 	vector<int> dfs_order;
 	vector<pair<int, int>> bridge;

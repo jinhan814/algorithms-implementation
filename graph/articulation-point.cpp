@@ -1,6 +1,6 @@
 /*
- *  BOJ 11266
- *  https://www.acmicpc.net/problem/11266
+ * BOJ 11266
+ * https://www.acmicpc.net/problem/11266
  */
 
 #include <bits/stdc++.h>

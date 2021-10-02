@@ -1,5 +1,5 @@
 /*
- *  https://blog.naver.com/jinhan814/222400578937
+ * https://blog.naver.com/jinhan814/222400578937
  */
 
 #include <bits/stdc++.h>
