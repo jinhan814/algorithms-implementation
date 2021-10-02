@@ -13,14 +13,14 @@ struct point {
 	point() : x(0), y(0) {}
 	point(int x, int y) : x(x), y(y) {}
 	/* methods */
-	friend int dist(point a, point b) { //(Euclidean distance)^2, use ll if x, y > 1e4
+	friend int dist(point a, point b) { // (Euclidean distance)^2, use ll if x, y > 1e4
 		return (a.x - b.x) * (a.x - b.x) + (a.y - b.y) * (a.y - b.y);
 	}
 	friend int ccw(point a, point b, point c) {
 		int t = (b.x - a.x) * (c.y - b.y) - (c.x - b.x) * (b.y - a.y);
 		return t ? t > 0 ? 1 : -1 : 0;
 	}
-	friend int is_cross(point a, point b, point c, point d) { //cross : -1, intersect : 1
+	friend int is_cross(point a, point b, point c, point d) { // cross : -1, intersect : 1
 		int ab = ccw(a, b, c) * ccw(a, b, d);
 		int cd = ccw(c, d, a) * ccw(c, d, b);
 		if (ab < 0 && cd < 0) return -1;
@@ -38,7 +38,7 @@ struct point {
 	bool operator != (const point& i) const { return !(*this == i); }
 	bool operator <= (const point& i) const { return *this < i || *this == i; }
 	bool operator >= (const point& i) const { return *this > i || *this == i; }
-	friend int operator * (point a, point b) { return a.x * b.y - a.y * b.x; } //cross product
+	friend int operator * (point a, point b) { return a.x * b.y - a.y * b.x; } // cross product
 	friend point operator + (point a, point b) { return { a.x + b.x, a.y + b.y }; }
 	friend point operator - (point a, point b) { return { a.x - b.x, a.y - b.y }; }
 	friend istream& operator >> (istream& in, point& i) { in >> i.x >> i.y; return in; }
@@ -63,7 +63,7 @@ struct polygon {
 	polygon() {}
 	polygon(vector<point> v) : v(v) {}
 	/* methods */
-	void convex_hull() { //convex hull in O(nlogn), ccw(v[i], v[i + 1], v[i + 2]) == 1
+	void convex_hull() { // convex hull in O(nlogn), ccw(v[i], v[i + 1], v[i + 2]) == 1
 		if (v.size() < 3) return;
 		swap(v[0], *min_element(v.begin(), v.end()));
 		sort(v.begin() + 1, v.end(), [&](const point& a, const point& b) {
@@ -78,7 +78,7 @@ struct polygon {
 		}
 		v = res;
 	}
-	double rotating_calipers() { //maximum distance in O(n), must be convex polygon
+	double rotating_calipers() { // maximum distance in O(n), must be convex polygon
         if (v.size() < 2) return 0;
 		int n = v.size();
 		int l = 0, r = max_element(v.begin(), v.end()) - v.begin();
@@ -90,7 +90,7 @@ struct polygon {
 		}
 		return ret;
 	}
-	int point_in_polygon_naive(point a) { //O(qn), for all polygon, inside : 1, boundary : -1
+	int point_in_polygon_naive(point a) { // O(qn), for all polygon, inside : 1, boundary : -1
 		if (v.size() < 3) return 0;
 		line cur(a, { int(1e9), a.y + 1 });
 		int cnt = 0;
@@ -101,7 +101,7 @@ struct polygon {
 		}
 		return cnt % 2;
 	}
-	int point_in_polygon(point a) { //O(qlogn), for convex polygon only
+	int point_in_polygon(point a) { // O(qlogn), for convex polygon only
 		if (v.size() < 3) return 0;
 		if (a < v[0] || ccw(v[0], v[1], a) < 0 || ccw(v[0], v.back(), a) > 0) return 0;
 		if (ccw(v[0], v[1], a) == 0) return line(v[0], v[1]).is_on_line(a) ? -1 : 0;

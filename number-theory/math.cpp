@@ -6,14 +6,14 @@ using namespace std;
 
 template<size_t sz = 100'000>
 struct Math {
-	vector<int> p;      //primes
-	int fpr[sz + 1];    //smallest prime divisor, IsPrime(p) ? 0 : fpr[p]
-	int expo[sz + 1];   //exponent of smallest prime divisor
-	int cnt_pr[sz + 1]; //number of distinct prime divisors
-	int phi[sz + 1];    //euler phi function
-	int mu[sz + 1];     //mobius function
-	int tau[sz + 1];    //number of divisors
-	int sig[sz + 1];    //sum of divisors
+	vector<int> p;      // primes
+	int fpr[sz + 1];    // smallest prime divisor, IsPrime(p) ? 0 : fpr[p]
+	int expo[sz + 1];   // exponent of smallest prime divisor
+	int cnt_pr[sz + 1]; // number of distinct prime divisors
+	int phi[sz + 1];    // euler phi function
+	int mu[sz + 1];     // mobius function
+	int tau[sz + 1];    // number of divisors
+	int sig[sz + 1];    // sum of divisors
 
 	Math() { linear_sieve(); }
 
@@ -62,7 +62,7 @@ struct Math {
 		return !fpr[n];
 	}
 
-	vector<pair<int, int>> Factorize(int n) { //must be n > 1
+	vector<pair<int, int>> Factorize(int n) { // must be n > 1
 		vector<pair<int, int>> ret;
 		for (int cur; cur = fpr[n];) {
 			int t = 0;
@@ -112,7 +112,7 @@ struct Math {
 		return ret;
 	}
 
-	vector<pair<int, int>> Factorize_naive(int n) { //must be n > 1
+	vector<pair<int, int>> Factorize_naive(int n) { // must be n > 1
 		vector<pair<int, int>> ret;
 		for (int i = 2; i * i <= n; i++) {
 			if (n % i) continue;
