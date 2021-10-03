@@ -7,7 +7,7 @@
 using namespace std;
 
 struct BCC { // vertex-disjoint BCC
-	int n, dfs_cnt, color_cnt;
+	int n, dfs_cnt, color_cnt, art_point_cnt;
 	vector<int> dfs_order, low, check;
 	vector<vector<int>> adj, v, color;
 
@@ -15,7 +15,7 @@ struct BCC { // vertex-disjoint BCC
 		n(n), adj(n + 1), v(n + 1),
 		dfs_order(n + 1), low(n + 1),
 		check(n + 1), color(n + 1),
-		dfs_cnt(0), color_cnt(0) {}
+		dfs_cnt(0), color_cnt(0), art_point_cnt(0) {}
 
 	void AddEdge(int a, int b) {
 		adj[a].push_back(b);
@@ -27,12 +27,13 @@ struct BCC { // vertex-disjoint BCC
 		for (const auto& nxt : adj[cur]) {
 			if (!dfs_order[nxt]) {
 				const int t = DFS(nxt);
-				if (t >= dfs_order[cur]) check[cur] = 1;
+				if (t >= dfs_order[cur] && !IsRoot && !check[cur])
+					check[cur] = ++art_point_cnt;
 				ret = min(ret, t), cnt++;
 			}
 			else ret = min(ret, dfs_order[nxt]);
 		}
-		if (IsRoot) check[cur] = cnt > 1;
+		if (IsRoot) check[cur] = cnt > 1 ? ++art_point_cnt : 0;
 		return ret;
 	}
 
@@ -56,11 +57,12 @@ struct BCC { // vertex-disjoint BCC
 		DFS(1, 1); Color(1, 0);
 
 		if (flag) {
-			cout << '\n' << "articulation-point : ";
+			cout << '\n' << "articulation-point :" << '\n';
+			cout << art_point_cnt << '\n';
 			for (int i = 1; i <= n; i++) if (check[i]) cout << i << ' ';
 			cout << "\n\n";
 
-			cout << "color : " << '\n';
+			cout << "color :" << '\n';
 			for (int i = 1; i <= color_cnt; i++) {
 				for (const auto& j : color[i]) cout << j << ' ';
 				cout << '\n';
