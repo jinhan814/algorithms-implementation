@@ -52,17 +52,19 @@ struct BCC { // vertex-disjoint BCC
 		}
 	}
 
-	void Init() { // suppose that graph is connected, no self-loop and multi-edge, V >= 2
+	void Init(bool flag = 0) { // suppose that graph is connected, no self-loop and multi-edge, V >= 2
 		DFS(1, 1); Color(1, 0);
 
-		cout << '\n' << "articulation-point : ";
-		for (int i = 1; i <= n; i++) if (check[i]) cout << i << ' ';
-		cout << "\n\n";
+		if (flag) {
+			cout << '\n' << "articulation-point : ";
+			for (int i = 1; i <= n; i++) if (check[i]) cout << i << ' ';
+			cout << "\n\n";
 
-		cout << "color : " << '\n';
-		for (int i = 1; i <= color_cnt; i++) {
-			for (const auto& j : color[i]) cout << j << ' ';
-			cout << '\n';
+			cout << "color : " << '\n';
+			for (int i = 1; i <= color_cnt; i++) {
+				for (const auto& j : color[i]) cout << j << ' ';
+				cout << '\n';
+			}
 		}
 	}
 };
@@ -75,7 +77,7 @@ int main() {
 		int a, b; cin >> a >> b;
 		Graph.AddEdge(a, b);
 	}
-	Graph.Init();
+	Graph.Init(1);
 }
 
 /*
