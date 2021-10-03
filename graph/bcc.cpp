@@ -43,7 +43,7 @@ struct BCC { // vertex-disjoint BCC
 			v[cur].push_back(p);
 		}
 		for (const auto& nxt : adj[cur]) {
-			if (v[nxt].size()) continue;
+			if (nxt == cur || v[nxt].size()) continue;
 			if (low[nxt] >= dfs_order[cur]) {
 				color[++color_cnt].push_back(cur);
 				v[cur].push_back(color_cnt);
@@ -53,7 +53,7 @@ struct BCC { // vertex-disjoint BCC
 		}
 	}
 
-	void Init(bool flag = 0) { // suppose that graph is connected, no self-loop and multi-edge, V >= 2
+	void Init(bool flag = 0) { // suppose that graph is connected, no multi-edge, V >= 2
 		DFS(1, 1); Color(1, 0);
 
 		if (flag) {
