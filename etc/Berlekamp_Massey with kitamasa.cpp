@@ -22,23 +22,23 @@ ll Pow(ll x, ll n) {
 }
 
 poly BerlekampMassey(const poly v) {
-	poly ls, ret; ll lf, ld;
-	for (ll i = 0, t = 0; i < v.size(); i++, t = 0) {
-		for (ll j = 0; j < ret.size(); j++) t = (t + 1ll * v[i - j - 1] * ret[j]) % MOD;
-		if ((t - v[i]) % MOD == 0) continue;
-		if (ret.empty()) { ret.resize(i + 1), lf = i, ld = (t - v[i]) % MOD; continue; }
-		const ll k = -(v[i] - t) * Pow(ld, MOD - 2) % MOD;
-		poly cur(i - lf - 1);
-		cur.push_back(k);
-		for (const auto& j : ls) cur.push_back(-j * k % MOD);
-		if (cur.size() < ret.size()) cur.resize(ret.size());
-		for (ll j = 0; j < ret.size(); j++) cur[j] = (cur[j] + ret[j]) % MOD;
-		if (i - lf + (ll)ls.size() >= (ll)ret.size()) tie(ls, lf, ld) = make_tuple(ret, i, (t - v[i]) % MOD);
-		ret = cur;
-	}
-	for (auto& i : ret) i = (i % MOD + MOD) % MOD;
+    poly ls, ret; ll lf, ld;
+    for (ll i = 0, t = 0; i < v.size(); i++, t = 0) {
+        for (ll j = 0; j < ret.size(); j++) t = (t + 1ll * v[i - j - 1] * ret[j]) % MOD;
+        if ((t - v[i]) % MOD == 0) continue;
+        if (ret.empty()) { ret.resize(i + 1), lf = i, ld = (t - v[i]) % MOD; continue; }
+        const ll k = -(v[i] - t) * Pow(ld, MOD - 2) % MOD;
+        poly cur(i - lf - 1);
+        cur.push_back(k);
+        for (const auto& j : ls) cur.push_back(-j * k % MOD);
+        if (cur.size() < ret.size()) cur.resize(ret.size());
+        for (ll j = 0; j < ret.size(); j++) cur[j] = (cur[j] + ret[j]) % MOD;
+        if (i - lf + (ll)ls.size() >= (ll)ret.size()) tie(ls, lf, ld) = make_tuple(ret, i, (t - v[i]) % MOD);
+        ret = cur;
+    }
+    for (auto& i : ret) i = (i % MOD + MOD) % MOD;
     reverse(ret.begin(), ret.end());
-	return ret;
+    return ret;
 }
 
 struct {
