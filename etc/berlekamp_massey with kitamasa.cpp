@@ -13,12 +13,12 @@ using ll = long long;
 using poly = vector<ll>;
 
 ll Pow(ll x, ll n) {
-	ll ret = 1;
-	for (; n; n >>= 1) {
-		if (n & 1) ret = ret * x % MOD;
-		x = x * x % MOD;
-	}
-	return ret;
+    ll ret = 1;
+    for (; n; n >>= 1) {
+        if (n & 1) ret = ret * x % MOD;
+        x = x * x % MOD;
+    }
+    return ret;
 }
 
 poly BerlekampMassey(const poly v) {
