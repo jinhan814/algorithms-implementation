@@ -6,8 +6,7 @@ template<size_t sz = 100'000>
 struct LinearSieve {
 	vector<int> p;
 	int sieve[sz + 1]; // sieve[i] : IsPrime(i) ? 0 : smallest prime factor
-
-	LinearSieve() {
+	LinearSieve() : sieve{} {
 		for (int i = 2; i <= sz; i++) {
 			if (!sieve[i]) p.push_back(i);
 			for (auto j : p) {
@@ -21,5 +20,5 @@ struct LinearSieve {
 
 int main() {
 	fastio;
-	for (auto& i : Sieve.p) cout << i << '\n';
+	for (auto& i : Sieve.p) cout << i << ' ';
 }
