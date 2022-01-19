@@ -34,9 +34,9 @@ using namespace std;
 
 template<typename T, typename F, T ID>
 struct Fenwick {
-	int n; vector<T> v, FT1, FT2; F f{};
-	Fenwick(int n) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID) {}
-	explicit Fenwick(int n, const F& f) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID), f(f) {}
+    int n; vector<T> v, FT1, FT2; F f{};
+    Fenwick(int n) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID) {}
+    explicit Fenwick(int n, const F& f) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID), f(f) {}
     void Update(int i, T val) {
         v[i] = val;
         {
@@ -61,8 +61,8 @@ struct Fenwick {
     T Query(int l, int r) {
         T L = ID, R = ID; int i;
         for (i = l; i + (i & -i) <= r; i += i & -i) L = f(L, FT2[i]);
-		for (i = r; i - (i & -i) >= l; i -= i & -i) R = f(FT1[i], R);
-		return f(f(L, v[i]), R);
+        for (i = r; i - (i & -i) >= l; i -= i & -i) R = f(FT1[i], R);
+        return f(f(L, v[i]), R);
     }
 };
 
