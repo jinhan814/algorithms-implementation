@@ -32,11 +32,14 @@
 #define fastio cin.tie(0)->sync_with_stdio(0)
 using namespace std;
 
-template<typename T, typename F, T ID>
+template<typename T, typename F>
 struct Fenwick {
-    int n; vector<T> v, FT1, FT2; F f{};
-    Fenwick(int n) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID) {}
-    explicit Fenwick(int n, const F& f) : n(n), v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID), f(f) {}
+    const int n; const T ID; F f;
+    vector<T> v, FT1, FT2;
+    Fenwick(int n, T ID) : Fenwick(n, ID, F{}) {}
+    explicit Fenwick(int n, T ID, const F& f) :
+        n(n), ID(ID), f(f),
+        v(n + 1, ID), FT1(n + 1, ID), FT2(n + 1, ID) {}
     void Update(int i, T val) {
         T t = v[i] = val;
         for (int j = i, l = i - 1, r = i + 1; j <= n; j += j & -j) {
@@ -46,8 +49,8 @@ struct Fenwick {
         }
         t = val;
         for (int j = i, l = i - 1, r = i + 1; j; j -= j & -j) {
-            while (l > j) t = f(t, FT1[l]), l -= l & -l;
-            while (r <= n && r < j + (j & -j)) t = f(FT2[r], t), r += r & -r;
+            while (l > j) t = f(FT1[l], t), l -= l & -l;
+            while (r <= n && r < j + (j & -j)) t = f(t, FT2[r]), r += r & -r;
             FT2[j] = i ^ j ? f(v[j], t) : t;
         }
     }
