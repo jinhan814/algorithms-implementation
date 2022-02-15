@@ -39,8 +39,12 @@ public:
         cnt[u]++;
         if (inp.size() == m) Init();
     }
-    iterator operator[](int i) { return { e.begin() + cnt[i], e.begin() + cnt[i + 1] }; }
-    const_iterator operator[](int i) const { return { e.begin() + cnt[i], e.begin() + cnt[i + 1] }; }
+    iterator operator[](int i) {
+        return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
+    }
+    const_iterator operator[](int i) const {
+        return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
+    }
 private:
     int n, m;
     vector<int> cnt;
