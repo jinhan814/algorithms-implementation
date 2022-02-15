@@ -53,6 +53,7 @@ private:
 	void Init() {
 		for (int i = 1; i < cnt.size(); i++) cnt[i] += cnt[i - 1];
 		for (const auto& [u, info] : inp) e[--cnt[u]] = info;
+		inp.clear();
 	}
 };
 
