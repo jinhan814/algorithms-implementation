@@ -28,32 +28,32 @@ template<typename It> struct Edges {
 
 template<typename T = void> struct StaticGraph { // 1-based
 public:
-    using info_type      = T;
-    using edge_type      = Edge<T>;
-    using iterator       = Edges<typename vector<edge_type>::iterator>;
-    using const_iterator = Edges<typename vector<edge_type>::const_iterator>;
-    StaticGraph(int n, int m) : n(n), m(m), cnt(n + 2), e(m) { inp.reserve(m); }
-    template<typename... Args>
-    void AddEdge(int u, Args&&... args) {
-        inp.emplace_back(u, edge_type{ forward<Args>(args)... });
-        cnt[u]++;
-        if (inp.size() == m) Init();
-    }
-    iterator operator[](int i) {
-        return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
-    }
-    const_iterator operator[](int i) const {
-        return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
-    }
+	using info_type      = T;
+	using edge_type      = Edge<T>;
+	using iterator       = Edges<typename vector<edge_type>::iterator>;
+	using const_iterator = Edges<typename vector<edge_type>::const_iterator>;
+	StaticGraph(int n, int m) : n(n), m(m), cnt(n + 2), e(m) { inp.reserve(m); }
+	template<typename... Args>
+	void AddEdge(int u, Args&&... args) {
+		inp.emplace_back(u, edge_type{ forward<Args>(args)... });
+		cnt[u]++;
+		if (inp.size() == m) Init();
+	}
+	iterator operator[](int i) {
+		return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
+	}
+	const_iterator operator[](int i) const {
+		return { e.begin() + cnt[i], e.begin() + cnt[i + 1] };
+	}
 private:
-    int n, m;
-    vector<int> cnt;
-    vector<pair<int, edge_type>> inp;
-    vector<edge_type> e;
-    void Init() {
-        for (int i = 1; i < cnt.size(); i++) cnt[i] += cnt[i - 1];
-        for (const auto& [u, info] : inp) e[--cnt[u]] = info;
-    }
+	int n, m;
+	vector<int> cnt;
+	vector<pair<int, edge_type>> inp;
+	vector<edge_type> e;
+	void Init() {
+		for (int i = 1; i < cnt.size(); i++) cnt[i] += cnt[i - 1];
+		for (const auto& [u, info] : inp) e[--cnt[u]] = info;
+	}
 };
 
 int main() {
