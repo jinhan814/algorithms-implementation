@@ -10,12 +10,14 @@ template<typename I> struct Edge {
 	int u; I info;
 	Edge() = default;
 	Edge(const int& u, const I& info) : u(u), info(info) {}
+	operator int() const { return u; }
 };
 
 template<> struct Edge<void> {
 	int u;
 	Edge() = default;
 	Edge(const int& u) : u(u) {}
+	operator int() const { return u; }
 };
 
 template<typename It> struct Edges {
@@ -28,7 +30,6 @@ template<typename It> struct Edges {
 
 template<typename T = void> struct StaticGraph { // 1-based
 public:
-	using info_type      = T;
 	using edge_type      = Edge<T>;
 	using iterator       = Edges<typename vector<edge_type>::iterator>;
 	using const_iterator = Edges<typename vector<edge_type>::const_iterator>;
@@ -53,7 +54,7 @@ private:
 	void Init() {
 		for (int i = 1; i < cnt.size(); i++) cnt[i] += cnt[i - 1];
 		for (const auto& [u, info] : inp) e[--cnt[u]] = info;
-		inp.clear();
+		cnt.clear(), inp.clear();
 	}
 };
 
